@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Books</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f7;
+            margin: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        /* Search Box */
+        .search-box {
+            width: 80%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .search-box input {
+            width: 60%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Table */
+        .table-container {
+            width: 85%;
+            margin: 20px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: green;
+            color: white;
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .delete-btn:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">Library Management System</div>
+
+<!-- Search -->
+<div class="search-box">
+    <input type="text" id="search" placeholder="Search by book name..." onkeyup="searchBook()">
+</div>
+
+<!-- Table -->
+<div class="table-container">
+    <h2 style="text-align:center;">Book List</h2>
+
+    <table id="bookTable">
+        <tr>
+            <th>Book ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Year</th>
+            <th>Action</th>
+        </tr>
+
+        <!-- Sample Data -->
+        <tr>
+            <td>B001</td>
+            <td>Introduction to Algorithms</td>
+            <td>xyz</td>
+            <td>Algorithms</td>
+            <td>5</td>
+            <td>2009</td>
+            <td><button class="delete-btn" onclick="deleteBook(this)">Delete</button></td>
+        </tr>
+
+        <tr>
+            <td>B002</td>
+            <td>Database System Concepts</td>
+            <td>abc</td>
+            <td>DBMS</td>
+            <td>3</td>
+            <td>2010</td>
+            <td><button class="delete-btn" onclick="deleteBook(this)">Delete</button></td>
+        </tr>
+
+    </table>
+</div>
+
+<script>
+function deleteBook(btn) {
+    let row = btn.parentNode.parentNode;
+    row.remove();
+}
+
+function searchBook() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let table = document.getElementById("bookTable");
+    let rows = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+        let title = rows[i].cells[1].innerHTML.toLowerCase();
+        if (title.includes(input)) {
+            rows[i].style.display = "";
+        } else {
+            rows[i].style.display = "none";
+        }
+    }
+}
+</script>
+
+</body>
+</html>
+```

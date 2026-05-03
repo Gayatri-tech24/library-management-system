@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Return Book</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f7;
+            margin: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        /* Container */
+        .container {
+            width: 450px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input:focus {
+            border-color: #e67e22;
+            outline: none;
+        }
+
+        /* Button */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background:green;
+        }
+
+        
+        .table-container {
+            width: 85%;
+            margin: 30px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: green;
+            color: white;
+        }
+
+        .returned {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">Library Management System</div>
+
+<div class="container">
+    <h2>Return Book</h2>
+
+    <form onsubmit="returnBook(event)">
+        
+        <label>Issue ID</label>
+        <input type="text" id="issueId" required>
+
+        <label>Return Date</label>
+        <input type="date" id="returnDate" required>
+
+        <button class="btn">Return Book</button>
+    </form>
+</div>
+
+<!-- Table -->
+<div class="table-container">
+    <h2 style="text-align:center;">Issued Records</h2>
+    <table id="returnTable">
+        <tr>
+            <th>Issue ID</th>
+            <th>User ID</th>
+            <th>Book ID</th>
+            <th>Return Date</th>
+            <th>Status</th>
+        </tr>
+
+        <!-- Sample Row -->
+        <tr>
+            <td>1</td>
+            <td>101</td>
+            <td>B001</td>
+            <td>-</td>
+            <td>Issued</td>
+        </tr>
+    </table>
+</div>
+
+<script>
+function returnBook(event) {
+    event.preventDefault();
+
+    let issueId = document.getElementById("issueId").value;
+    let returnDate = document.getElementById("returnDate").value;
+
+    let table = document.getElementById("returnTable");
+    let rows = table.rows;
+
+    let found = false;
+
+    for (let i = 1; i < rows.length; i++) {
+        if (rows[i].cells[0].innerHTML == issueId) {
+            rows[i].cells[3].innerHTML = returnDate;
+            rows[i].cells[4].innerHTML = "Returned";
+            rows[i].cells[4].classList.add("returned");
+            found = true;
+        }
+    }
+
+    if (found) {
+        alert("Book Returned Successfully!");
+    } else {
+        alert("Issue ID not found!");
+    }
+
+    document.querySelector("form").reset();
+}
+</script>
+
+</body>
+</html>
+
