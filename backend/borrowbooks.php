@@ -1,45 +1,33 @@
 <?php
-// Link to the connection file
 include "../config/db.php";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    // Collect data from the form
+    $student_id = $_POST['student_id'];
     $book_id = $_POST['book_id'];
-    $student_id = $_POST['student_id']; // Using student_id based on image_24a66a.jpg
+    $borrow_date = date("Y-m-d"); // Automatically get today's date
 
-    // 1. Check if the book is available (status = 'available')
-    $check_sql = "SELECT status FROM books WHERE id = ?";
-    $stmt_check = mysqli_prepare($conn, $check_sql);
-    mysqli_stmt_bind_param($stmt_check, "i", $book_id);
-    mysqli_stmt_execute($stmt_check);
-    $res = mysqli_stmt_get_result($stmt_check);
-    $book = mysqli_fetch_assoc($res);
+    // SQL: We skip the 'issue_id' column because it should be AUTO_INCREMENT
+    $sql = "INSERT INTO borrow (student_id, book_id, borrow_date) VALUES (?, ?, ?)";
+    
+    $stmt = mysqli_prepare($conn, $sql);
 
-    if ($book && $book['status'] == 'available') {
-        // 2. Start transaction
-        mysqli_begin_transaction($conn);
+    // "iis" means: integer, integer, string
+    mysqli_stmt_bind_param($stmt, "iis", $student_id, $book_id, $borrow_date);
 
-        try {
-            // Update status to 'borrowed'
-            $update_sql = "UPDATE books SET status = 'borrowed' WHERE id = ?";
-            $stmt_upd = mysqli_prepare($conn, $update_sql);
-            mysqli_stmt_bind_param($stmt_upd, "i", $book_id);
-            mysqli_stmt_execute($stmt_upd);
+    if (mysqli_stmt_execute($stmt)) {
+        // Optional: Update the book status to 'Borrowed' in the books table
+        $updateSql = "UPDATE books SET status = 'Borrowed' WHERE id = ?";
+        $updateStmt = mysqli_prepare($conn, $updateSql);
+        mysqli_stmt_bind_param($updateStmt, "i", $book_id);
+        mysqli_stmt_execute($updateStmt);
 
-            // Log the record in the 'borrow' table (based on image_24a66a.jpg)
-            // Assuming columns are book_id and student_id
-            $log_sql = "INSERT INTO borrow (book_id, student_id) VALUES (?, ?)";
-            $stmt_log = mysqli_prepare($conn, $log_sql);
-            mysqli_stmt_bind_param($stmt_log, "ii", $book_id, $student_id);
-            mysqli_stmt_execute($stmt_log);
-
-            mysqli_commit($conn);
-            echo "Success: Book borrowed successfully!";
-        } catch (Exception $e) {
-            mysqli_rollback($conn);
-            echo "Error: Transaction failed. " . $e->getMessage();
-        }
+        echo "<h3>✅ Success: Book issued to Student ID: $student_id</h3>";
+        echo "<a href='../index.html'>Back to Dashboard</a>";
     } else {
-        echo "Error: Book is already borrowed or does not exist.";
+        echo "❌ Error: " . mysqli_stmt_error($stmt);
     }
+
+    mysqli_stmt_close($stmt);
 }
 ?>

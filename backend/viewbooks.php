@@ -1,35 +1,35 @@
 <?php
-// Link to the connection file
 include "../config/db.php";
 
-// Updated SQL to match your attributes: id, book_name, author, status
-$sql = "SELECT id, book_name, author, status FROM books";
+// Fetch all books from the database
+$sql = "SELECT * FROM books";
 $result = mysqli_query($conn, $sql);
-
-echo "<h2>Library Inventory</h2>";
-
-if (mysqli_num_rows($result) > 0) {
-    echo "<table border='1' cellpadding='10' cellspacing='0'>
-            <tr style='background-color: #f2f2f2;'>
-                <th>ID</th>
-                <th>Book Name</th>
-                <th>Author</th>
-                <th>Status</th>
-            </tr>";
-    
-    while($row = mysqli_fetch_assoc($result)) {
-        // Apply color coding based on status for better visibility
-        $statusColor = ($row["status"] == 'available') ? "green" : "red";
-
-        echo "<tr>
-                <td>" . $row["id"] . "</td>
-                <td>" . $row["book_name"] . "</td>
-                <td>" . $row["author"] . "</td>
-                <td style='color: $statusColor; font-weight: bold;'>" . ucfirst($row["status"]) . "</td>
-              </tr>";
-    }
-    echo "</table>";
-} else {
-    echo "No books found in the database.";
-}
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Books - Library System</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; text-align: center; }
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #2c3e50; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .status-available { color: green; font-weight: bold; }
+        .status-borrowed { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>📚 Current Library Inventory</h2>
+    <a href="../index.html">⬅ Back to Dashboard</a>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Book Title</th>
+            <th>Author</th>
+            <th>Status</th>
+        </tr>
