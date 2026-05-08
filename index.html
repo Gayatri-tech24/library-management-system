@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management System</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background: #eef5ff;
+        }
+
+        header {
+            background: #0d47a1;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        nav {
+            background: #1565c0;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 10px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #bbdefb;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            margin-top: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 5px solid #1565c0;
+        }
+
+        .card h3 {
+            color: #0d47a1;
+        }
+
+        .card button {
+            padding: 10px 15px;
+            border: none;
+            background: #1565c0;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .card button:hover {
+            background: #0d47a1;
+        }
+
+        footer {
+            background: #0d47a1;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    Library Management System Dashboard
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="librarian_login.html">Librarian Login</a>
+    <a href="register_student.html">Register Student</a>
+    <a href="viewbook.html">View Books</a>
+</nav>
+
+<div class="container">
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>Add Book</h3>
+            <p>Add new books to library</p>
+            <button onclick="location.href='addbook.html'">Open</button>
+        </div>
+
+        <div class="card">
+            <h3>Issue Book</h3>
+            <p>Issue books to students</p>
+            <button onclick="location.href='issuebook.html'">Open</button>
+        </div>
+
+        <div class="card">
+            <h3>Return Book</h3>
+            <p>Return issued books</p>
+            <button onclick="location.href='returnbook.html'">Open</button>
+        </div>
+
+        <div class="card">
+            <h3>User Management</h3>
+            <p>Manage students and users</p>
+            <button onclick="location.href='usermanagement.html'">Open</button>
+        </div>
+
+        <div class="card">
+            <h3>View Books</h3>
+            <p>Check available books</p>
+            <button onclick="location.href='viewbook.html'">Open</button>
+        </div>
+
+        <div class="card">
+            <h3>Register Student</h3>
+            <p>Add new students</p>
+            <button onclick="location.href='register_student.html'">Open</button>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
