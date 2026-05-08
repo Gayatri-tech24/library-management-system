@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Librarian Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+        }
+
+        
+        .sidebar {
+            width: 220px;
+            height: 100vh;
+            background: #2c3e50;
+            color: white;
+            position: fixed;
+            padding-top: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            padding: 12px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background: #34495e;
+        }
+
+        
+        .main {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        
+        .header {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+        }
+
+        
+        .cards {
+            display: flex;
+            gap: 20px;
+        }
+
+        .card {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .card h3 {
+            margin: 10px 0;
+        }
+
+        .card p {
+            font-size: 22px;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>Librarian</h2>
+    <a href="addbook.html">Add Book</a>
+    <a href="issue.html">Issue Book</a>
+    <a href="return.html">Return Book</a>
+    <a href="usermanagement.html">User Management</a>
+    <a href="viewbook.html">View Book</a>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+    <!-- Header -->
+    <div class="header">
+        <h2>Dashboard</h2>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards">
+        <div class="card">
+            <h3>Total Books</h3>
+            <p id="books">120</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Users</h3>
+            <p id="users">45</p>
+        </div>
+
+        <div class="card">
+            <h3>Issued Books</h3>
+            <p id="issued">30</p>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <h3 style="margin-top:30px;">Recent Activity</h3>
+
+    <table>
+        <tr>
+            <th>User ID</th>
+            <th>Book ID</th>
+            <th>Status</th>
+        </tr>
+
+        <tr>
+            <td>101</td>
+            <td>B001</td>
+            <td>Issued</td>
+        </tr>
+
+        <tr>
+            <td>102</td>
+            <td>B002</td>
+            <td>Returned</td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>
+```
