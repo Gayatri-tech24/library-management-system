@@ -1,31 +1,20 @@
-<?php
-include "../config/db.php";
-
-// Fetch all books from the database
-$sql = "SELECT * FROM books";
-$result = mysqli_query($conn, $sql);
-?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>View Books - Library System</title>
+    <title>Library Inventory</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; text-align: center; }
-        table { width: 80%; margin: 20px auto; border-collapse: collapse; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        body { font-family: sans-serif; background: #eef5ff; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; background: white; }
         th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
-        th { background-color: #2c3e50; color: white; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        .status-available { color: green; font-weight: bold; }
-        .status-borrowed { color: red; font-weight: bold; }
+        th { background: #1565c0; color: white; }
+        .available { color: green; font-weight: bold; }
+        .borrowed { color: red; font-weight: bold; }
     </style>
 </head>
 <body>
-
-    <h2>📚 Current Library Inventory</h2>
-    <a href="../index.html">⬅ Back to Dashboard</a>
-
+    <h2>📚 Current Library Books</h2>
+    <a href="index.html">Back to Dashboard</a><br><br>
+    
     <table>
         <tr>
             <th>ID</th>
@@ -33,3 +22,19 @@ $result = mysqli_query($conn, $sql);
             <th>Author</th>
             <th>Status</th>
         </tr>
+        <?php
+        $conn = mysqli_connect("127.0.0.1", "root", "", "library_db", 3307);
+        $res = mysqli_query($conn, "SELECT * FROM books");
+        while($row = mysqli_fetch_assoc($res)) {
+            $class = ($row['status'] == 'Available') ? 'available' : 'borrowed';
+            echo "<tr>
+                    <td>{$row['id']}</td>
+                    <td>{$row['book_name']}</td>
+                    <td>{$row['author']}</td>
+                    <td class='$class'>{$row['status']}</td>
+                  </tr>";
+        }
+        ?>
+    </table>
+</body>
+</html>

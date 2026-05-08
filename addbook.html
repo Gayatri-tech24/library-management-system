@@ -1,179 +1,107 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Add Book - Library</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Book - Library System</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #eef2f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
+            background: #eef5ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        /* Navbar */
-        .navbar {
-            background: #2c3e50;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 22px;
-        }
-
-        /* Container */
-        .container {
-            width: 450px;
-            margin: 40px auto;
+        .form-card {
             background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            border-top: 6px solid #0d47a1;
         }
 
         h2 {
-            text-align: center;
+            color: #0d47a1;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         label {
+            display: block;
+            margin-bottom: 8px;
             font-weight: bold;
+            color: #333;
         }
 
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0 15px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        input:focus, select:focus {
-            border-color: #3498db;
-            outline: none;
-        }
-
-        /* Button */
-        .btn {
+        input[type="text"], select {
             width: 100%;
             padding: 12px;
-            background: #3498db;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box; /* Important for padding */
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #1565c0;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
+            transition: background 0.3s;
         }
 
-        .btn:hover {
-            background: #2980b9;
+        button:hover {
+            background: #0d47a1;
         }
 
-        /* Table */
-        .table-container {
-            width: 80%;
-            margin: 30px auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
+        .back-link {
+            display: block;
             text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #1565c0;
+            font-size: 14px;
         }
 
-        th {
-            background: #3498db;
-            color: white;
+        .back-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
-
 <body>
 
-<div class="navbar">Library Management System</div>
-
-<div class="container">
-    <h2>Add New Book</h2>
-
-    <form onsubmit="addBook(event)">
+    <div class="form-card">
+        <h2>📚 Add New Book</h2>
         
-        <label>Book Title</label>
-        <input type="text" id="title" required>
+        <form action="backend/addbooks.php" method="POST">
+            <label for="book_name">Book Title</label>
+            <input type="text" id="book_name" name="book_name" placeholder="e.g. Operating System Concepts" required>
 
-        <label>Author</label>
-        <input type="text" id="author" required>
+            <label for="author">Author Name</label>
+            <input type="text" id="author" name="author" placeholder="e.g. Abraham Silberschatz" required>
 
-        <label>Category</label>
-        <select id="category" required>
-            <option value="">-- Select Category --</option>
-            <option>Programming</option>
-            <option>Data Structures</option>
-            <option>Algorithms</option>
-            <option>Database Management</option>
-            <option>Operating Systems</option>
-            <option>Computer Networks</option>
-            <option>Artificial Intelligence</option>
-            <option>Machine Learning</option>
-            <option>Cyber Security</option>
-            <option>Web Development</option>
-            <option>Software Engineering</option>
-            <option>Cloud Computing</option>
-        </select>
+            <label for="status">Availability Status</label>
+            <select id="status" name="status">
+                <option value="Available">Available</option>
+                <option value="Borrowed">Borrowed</option>
+            </select>
 
-        <label>Quantity</label>
-        <input type="number" id="quantity" min="1" required>
+            <button type="submit">Add Book to Inventory</button>
+        </form>
 
-        <label>Published Year</label>
-        <input type="number" id="year" min="1900" max="2026">
-
-        <button class="btn">Add Book</button>
-    </form>
-</div>
-
-<!-- Table -->
-<div class="table-container">
-    <h2 style="text-align:center;">Book List</h2>
-    <table id="bookTable">
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Category</th>
-            <th>Quantity</th>
-            <th>Year</th>
-        </tr>
-    </table>
-</div>
-
-<script>
-function addBook(event) {
-    event.preventDefault();
-
-    let title = document.getElementById("title").value;
-    let author = document.getElementById("author").value;
-    let category = document.getElementById("category").value;
-    let quantity = document.getElementById("quantity").value;
-    let year = document.getElementById("year").value;
-
-    let table = document.getElementById("bookTable");
-
-    let row = table.insertRow();
-
-    row.insertCell(0).innerHTML = title;
-    row.insertCell(1).innerHTML = author;
-    row.insertCell(2).innerHTML = category;
-    row.insertCell(3).innerHTML = quantity;
-    row.insertCell(4).innerHTML = year;
-
-    alert("Book Added Successfully!");
-
-    document.querySelector("form").reset();
-}
-</script>
+        <a href="index.html" class="back-link">← Return to Dashboard</a>
+    </div>
 
 </body>
 </html>

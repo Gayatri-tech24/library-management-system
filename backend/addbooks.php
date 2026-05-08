@@ -1,21 +1,37 @@
 <?php
-include "../config/db.php";
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Connection Settings
+$servername = "127.0.0.1";
+$username = "root";
+$password = "";
+$dbname = "library_db";
+$port = 3307; 
+
+$conn = mysqli_connect($servername, $username, $password, $dbname, $port);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $book_name = $_POST['book_name'];
-    $author = $_POST['author'];
-    $status = $_POST['status']; 
+    
+    // FIXED: Changed real_escape_with_string to real_escape_string
+    $book_name = mysqli_real_escape_string($conn, $_POST['book_name']);
+    $author = mysqli_real_escape_string($conn, $_POST['author']);
+    $status = mysqli_real_escape_string($conn, $_POST['status']);
 
-    // No 'id' here, let the database handle it
-    $sql = "INSERT INTO books (book_name, author, status) VALUES (?, ?, ?)";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "sss", $book_name, $author, $status);
-
-    if (mysqli_stmt_execute($stmt)) {
-        echo "<h3>✅ Success: Book added to the library!</h3>";
+    $sql = "INSERT INTO books (book_name, author, status) VALUES ('$book_name', '$author', '$status')";
+    
+    if (mysqli_query($conn, $sql)) {
+        echo "<script>
+                alert('✅ Book Added Successfully!');
+                window.location.href='../addbook.html';
+              </script>";
     } else {
-        echo "❌ Error: " . mysqli_stmt_error($stmt);
+        echo "<h3>❌ Database Error:</h3> " . mysqli_error($conn);
     }
-    mysqli_stmt_close($stmt);
 }
+mysqli_close($conn);
 ?>

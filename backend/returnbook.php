@@ -1,47 +1,29 @@
 <?php
-// Correct path to your config file
-include("../config/db.php");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// Get data from form
-$student_id = $_POST['student_id'];
-$book_id = $_POST['book_id'];
+// Database Connection
+$conn = mysqli_connect("127.0.0.1", "root", "", "library_db", 3307);
 
-// 1. Find active borrow record in the 'borrow' table (not 'borrowed_books')
-$sql = "SELECT * FROM borrow 
-        WHERE student_id='$student_id' 
-        AND book_id='$book_id' 
-        AND return_date >= CURDATE()";
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $book_id = mysqli_real_escape_string($conn, $_POST['book_id']);
 
-$result = $conn->query($sql);
+    // 1. Delete the record from the borrow table
+    $delete_sql = "DELETE FROM borrow WHERE book_id = '$book_id'";
+    
+    if (mysqli_query($conn, $delete_sql)) {
+        
+        // 2. Update the books table to make it 'Available' again
+        $update_sql = "UPDATE books SET status='Available' WHERE id='$book_id'";
+        mysqli_query($conn, $update_sql);
 
-if ($result->num_rows > 0) {
-
-    // 2. Mark as returned in the 'borrow' table
-    $updateBorrow = "UPDATE borrow 
-                     SET return_date = CURDATE() 
-                     WHERE student_id='$student_id' 
-                     AND book_id='$book_id' 
-                     AND return_date >= CURDATE()";
-
-    if ($conn->query($updateBorrow) === TRUE) {
-
-        // 3. Update book status back to 'Available' in the 'books' table
-        // Based on your photo, we use the column 'status'
-        $updateBook = "UPDATE books 
-                       SET status = 'Available' 
-                       WHERE id='$book_id'";
-
-        $conn->query($updateBook);
-
-        echo "<h3>✅ Book Returned and marked as Available!</h3>";
-
+        echo "<script>
+                alert('✅ Book Returned Successfully!');
+                window.location.href='../return.html';
+              </script>";
     } else {
-        echo "Error updating record: " . $conn->error;
+        echo "<h3>❌ Error:</h3> " . mysqli_error($conn);
     }
-
-} else {
-    echo "<h3>❌ No active borrow record found for this student and book</h3>";
 }
-
-$conn->close();
+mysqli_close($conn);
 ?>
