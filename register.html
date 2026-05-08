@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register Student</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background: #eef5ff;
+        }
+
+        header {
+            background: #0d47a1;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        nav {
+            background: #1565c0;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 10px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #bbdefb;
+        }
+
+        .container {
+            width: 40%;
+            margin: auto;
+            margin-top: 40px;
+        }
+
+        .form-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #0d47a1;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            border: none;
+            background: #1565c0;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #0d47a1;
+        }
+
+        footer {
+            background: #0d47a1;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    Register Student
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="student.html">Student Dashboard</a>
+    <a href="viewbook.html">View Books</a>
+</nav>
+
+<div class="container">
+    <div class="form-box">
+
+        <h2>Student Registration</h2>
+
+        <form action="#" method="post">
+
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter full name" required>
+
+            <label>Email</label>
+            <input type="email" placeholder="Enter email" required>
+
+            <label>Phone Number</label>
+            <input type="tel" placeholder="Enter phone number" required>
+
+            <label>Course</label>
+            <input type="text" placeholder="Enter course">
+
+            <label>Year</label>
+            <select required>
+                <option value="">Select Year</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+            </select>
+
+            <label>Password</label>
+            <input type="password" placeholder="Create password" required>
+
+            <button type="submit">Register</button>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
