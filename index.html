@@ -1,144 +1,263 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Library Management System</title>
 
     <style>
-        body {
-            font-family: Arial;
-            margin: 0;
-            background: #eef5ff;
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
         }
 
-        header {
-            background: #0d47a1;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 24px;
+        body{
+            background:linear-gradient(to right,#eef5ff,#dbe9ff);
         }
 
-        nav {
-            background: #1565c0;
-            padding: 10px;
-            text-align: center;
+        /* Header */
+        header{
+            background:#0d47a1;
+            color:white;
+            padding:20px;
+            text-align:center;
+            font-size:32px;
+            font-weight:bold;
+            letter-spacing:1px;
         }
 
-        nav a {
-            color: white;
-            margin: 10px;
-            text-decoration: none;
-            font-size: 16px;
+        /* Navbar */
+        nav{
+            background:#1565c0;
+            padding:15px;
+            text-align:center;
         }
 
-        nav a:hover {
-            color: #bbdefb;
+        nav a{
+            color:white;
+            text-decoration:none;
+            margin:0 20px;
+            font-size:17px;
+            transition:0.3s;
         }
 
-        .container {
-            width: 90%;
-            margin: auto;
-            margin-top: 30px;
+        nav a:hover{
+            color:#bbdefb;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+        /* Hero Section */
+        .hero{
+            text-align:center;
+            padding:70px 20px 40px;
+            animation:fadeIn 1.5s;
         }
 
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            text-align: center;
-            border-top: 5px solid #1565c0;
+        .hero h1{
+            font-size:42px;
+            color:#0d47a1;
+            margin-bottom:20px;
         }
 
-        .card h3 {
-            color: #0d47a1;
+        .hero p{
+            font-size:18px;
+            color:#444;
+            line-height:1.7;
         }
 
-        .card button {
-            padding: 10px 15px;
-            border: none;
-            background: #1565c0;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
+        /* Login Card */
+        .container{
+            display:flex;
+            justify-content:center;
+            margin-top:20px;
         }
 
-        .card button:hover {
-            background: #0d47a1;
+        .card{
+            width:350px;
+            background:white;
+            padding:35px;
+            border-radius:15px;
+            box-shadow:0px 0px 15px rgba(0,0,0,0.1);
+            text-align:center;
+            transition:0.3s;
+            border-top:5px solid #1565c0;
         }
 
-        footer {
-            background: #0d47a1;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            margin-top: 40px;
+        .card:hover{
+            transform:translateY(-8px);
         }
+
+        .card h2{
+            color:#0d47a1;
+            margin-bottom:15px;
+            font-size:30px;
+        }
+
+        .card p{
+            color:#555;
+            margin-bottom:25px;
+            font-size:16px;
+        }
+
+        .card button{
+            padding:12px 25px;
+            border:none;
+            background:#1565c0;
+            color:white;
+            font-size:16px;
+            border-radius:6px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .card button:hover{
+            background:#0d47a1;
+        }
+
+        /* Statistics Section */
+        .stats{
+            width:90%;
+            margin:60px auto;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+            gap:20px;
+        }
+
+        .stat-box{
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            text-align:center;
+            box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-box h3{
+            color:#1565c0;
+            margin-bottom:10px;
+        }
+
+        .stat-box p{
+            font-size:28px;
+            font-weight:bold;
+            color:#0d47a1;
+        }
+
+        /* Footer */
+        footer{
+            background:#0d47a1;
+            color:white;
+            text-align:center;
+            padding:15px;
+            margin-top:40px;
+            font-size:15px;
+        }
+
+        /* Animation */
+        @keyframes fadeIn{
+
+            from{
+                opacity:0;
+                transform:translateY(20px);
+            }
+
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
     </style>
 </head>
 
 <body>
 
+<!-- Header -->
 <header>
-    Library Management System Dashboard
+    📚 Library Management System
 </header>
 
+<!-- Navbar -->
 <nav>
+
     <a href="index.html">Home</a>
-    <a href="librarian_login.html">Librarian Login</a>
-    <a href="register_student.html">Register Student</a>
+
     <a href="viewbook.html">View Books</a>
+
+    <a href="login.html">Login</a>
+
 </nav>
 
+<!-- Hero Section -->
+<div class="hero">
+
+    <h1>Welcome to Digital Library Portal</h1>
+
+    <p>
+        Manage books, issue records
+        and return activities efficiently using
+        our Library Management System.
+    </p>
+
+</div>
+
+<!-- Login Card -->
 <div class="container">
 
-    <div class="grid">
+    <div class="card">
 
-        <div class="card">
-            <h3>Add Book</h3>
-            <p>Add new books to library</p>
-            <button onclick="location.href='addbook.html'">Open</button>
-        </div>
+        <h2>🔐 Login</h2>
 
-        <div class="card">
-            <h3>Issue Book</h3>
-            <p>Issue books to students</p>
-            <button onclick="location.href='issue.html'">Open</button>
-        </div>
+        <p>
+            Login as Librarian or Student
+            to access the system dashboard.
+        </p>
 
-        <div class="card">
-            <h3>Return Book</h3>
-            <p>Return issued books</p>
-            <button onclick="location.href='backend/returnbook.php'">Open</button>
-        </div>
-
-        <div class="card">
-            <h3>User Management</h3>
-            <p>Manage students and users</p>
-            <button onclick="location.href='backend/manageuser.php'">Open</button>
-        </div>
-
-        <div class="card">
-            <h3>View Books</h3>
-            <p>Check available books</p>
-            <button onclick="location.href='backend/viewbooks.php'">Open</button>
-        </div>
-
-        <div class="card">
-            <h3>Register Student</h3>
-            <p>Add new students</p>
-            <button onclick="location.href='register.html'">Open</button>
-        </div>
+        <button onclick="location.href='login.html'">
+            Open Login
+        </button>
 
     </div>
 
 </div>
 
+<!-- Statistics -->
+<div class="stats">
+
+    <div class="stat-box">
+
+        <h3>Total Books</h3>
+
+        <p>500</p>
+
+    </div>
+
+    <div class="stat-box">
+
+        <h3>Total Students</h3>
+
+        <p>100</p>
+
+    </div>
+
+    <div class="stat-box">
+
+        <h3>Issued Books</h3>
+
+        <p>60</p>
+
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+
+    © 2026 Library Management System | DBMS Mini Project
+
+</footer>
+
 </body>
 </html>
+
+

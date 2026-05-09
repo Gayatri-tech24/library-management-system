@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Login</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(to right,#2c3e50,#4ca1af);
+        }
+
+        /* Main Container */
+        .container{
+            width:950px;
+            height:540px;
+            background:white;
+            border-radius:15px;
+            overflow:hidden;
+            display:flex;
+            box-shadow:0px 0px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Left Section */
+        .left{
+            width:50%;
+            background:#2c3e50;
+            color:white;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            padding:40px;
+            text-align:center;
+        }
+
+        .left h1{
+            font-size:38px;
+            margin-bottom:20px;
+        }
+
+        .left p{
+            font-size:17px;
+            line-height:1.7;
+        }
+
+        /* Right Section */
+        .right{
+            width:50%;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            padding:50px;
+        }
+
+        /* Tabs */
+        .tabs{
+            display:flex;
+            margin-bottom:30px;
+        }
+
+        .tabs button{
+            flex:1;
+            padding:12px;
+            border:none;
+            cursor:pointer;
+            font-size:16px;
+            background:#ecf0f1;
+            transition:0.3s;
+        }
+
+        .tabs button.active{
+            background:#3498db;
+            color:white;
+        }
+
+        .right h2{
+            text-align:center;
+            margin-bottom:25px;
+            color:#2c3e50;
+        }
+
+        label{
+            font-weight:bold;
+            margin-bottom:5px;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            margin-bottom:20px;
+            border:1px solid #ccc;
+            border-radius:6px;
+            font-size:15px;
+        }
+
+        input:focus{
+            outline:none;
+            border-color:#3498db;
+        }
+
+        .login-btn{
+            width:100%;
+            padding:12px;
+            background:#3498db;
+            border:none;
+            color:white;
+            font-size:16px;
+            border-radius:6px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .login-btn:hover{
+            background:#2980b9;
+        }
+
+        .extra{
+            margin-top:15px;
+            text-align:center;
+            font-size:14px;
+        }
+
+        .extra a{
+            text-decoration:none;
+            color:#3498db;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Left Side -->
+    <div class="left">
+
+        <h1>Library Management System</h1>
+
+       
+
+    </div>
+
+    <!-- Right Side -->
+    <div class="right">
+
+        <!-- Login Tabs -->
+        <div class="tabs">
+            <button id="libBtn" class="active" onclick="showLibrarian()">
+                Librarian
+            </button>
+
+            <button id="stuBtn" onclick="showStudent()">
+                Student
+            </button>
+        </div>
+
+        <h2 id="loginTitle">Librarian Login</h2>
+
+        <!-- Login Form -->
+        <form onsubmit="login(event)">
+
+            
+            <input type="text" id="username" placeholder="Enter Username" required>
+
+            
+            <input type="password" id="password" placeholder="Enter Password" required>
+
+            <button class="login-btn">Login</button>
+            
+        </form>
+
+        <div class="extra">
+            <a href="#">Forgot Password?</a>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+let currentRole = "librarian";
+
+/* Librarian Tab */
+function showLibrarian(){
+
+    currentRole = "librarian";
+
+    document.getElementById("loginTitle").innerHTML = "Librarian Login";
+
+    document.getElementById("libBtn").classList.add("active");
+    document.getElementById("stuBtn").classList.remove("active");
+}
+
+/* Student Tab */
+function showStudent(){
+
+    currentRole = "student";
+
+    document.getElementById("loginTitle").innerHTML = "Student Login";
+
+    document.getElementById("stuBtn").classList.add("active");
+    document.getElementById("libBtn").classList.remove("active");
+}
+
+/* Login Function */
+function login(event){
+
+    event.preventDefault();
+
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    /* Librarian Login */
+    if(currentRole === "librarian"){
+
+        if(username === "admin" && password === "library1234"){
+
+            alert("Librarian Login Successful!");
+
+            window.location.href = "librarian page.html";
+        }
+
+        else{
+            alert("Invalid Librarian Credentials");
+        }
+    }
+
+    /* Student Login */
+    else{
+
+         if(username !== "" && password !== ""){
+
+            alert("Student Login Successful!");
+
+            window.location.href = "student.html";
+        }
+
+        else{
+            alert("Invalid Student Credentials");
+        }
+    }
+}
+
+</script>
+
+</body>
+</ht

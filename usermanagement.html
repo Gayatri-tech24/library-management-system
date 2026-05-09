@@ -1,38 +1,182 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Add Student - Library System</title>
+    <title>User Management</title>
+
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); width: 400px; border-top: 8px solid #6a1b9a; }
-        h2 { color: #4a148c; text-align: center; margin-bottom: 25px; }
-        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
-        input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
-        button { width: 100%; padding: 14px; background: #6a1b9a; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        button:hover { background: #4a148c; }
-        .links { display: flex; justify-content: space-between; margin-top: 20px; }
-        .links a { text-decoration: none; color: #6a1b9a; font-size: 14px; font-weight: bold; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f7;
+            margin: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        /* Form Container */
+        .container {
+            width: 450px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input:focus {
+            border-color:#3498db;
+            outline: none;
+        }
+
+        /* Button */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background:#3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background:#3498db;
+        }
+
+        /* Table */
+        .table-container {
+            width: 85%;
+            margin: 30px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .delete-btn:hover {
+            background: darkred;
+        }
     </style>
 </head>
+
 <body>
 
-    <div class="card">
-        <h2>👤 View students</h2>
-        <form action="backend/auth/register.php" method="POST">
-            <label>Full Name</label>
-            <input type="text" name="student_name" placeholder="e.g. Aarnav Singh" required>
+<div class="navbar">Library Management System</div>
 
-            <label>Roll Number</label>
-            <input type="text" name="roll_no" placeholder="e.g. 1AJ24CS001" required>
+<div class="container">
+    <h2>User Management</h2>
 
-            <button type="submit">Add Student</button>
-        </form>
-        <div class="links">
-            <a href="index.html">← Dashboard</a>
-            <a href="manage_users.php">View Student List →</a>
-        </div>
-    </div>
+    <form onsubmit="addUser(event)">
+        
+        <label>User ID</label>
+        <input type="text" id="userId" required>
+
+        <label>Name</label>
+        <input type="text" id="name" required>
+
+        <label>Email</label>
+        <input type="email" id="email" required>
+
+        <label>Phone</label>
+        <input type="text" id="phone" required>
+
+        <button class="btn">Add User</button>
+    </form>
+</div>
+
+<!-- Table -->
+<div class="table-container">
+    <h2 style="text-align:center;">User List</h2>
+
+    <table id="userTable">
+        <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Action</th>
+        </tr>
+    </table>
+</div>
+
+<script>
+function addUser(event) {
+    event.preventDefault();
+
+    let id = document.getElementById("userId").value;
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+
+    let table = document.getElementById("userTable");
+    let row = table.insertRow();
+
+    row.insertCell(0).innerHTML = id;
+    row.insertCell(1).innerHTML = name;
+    row.insertCell(2).innerHTML = email;
+    row.insertCell(3).innerHTML = phone;
+
+    let actionCell = row.insertCell(4);
+    actionCell.innerHTML = '<button class="delete-btn" onclick="deleteUser(this)">Delete</button>';
+
+    alert("User Added Successfully!");
+
+    document.querySelector("form").reset();
+}
+
+function deleteUser(btn) {
+    let row = btn.parentNode.parentNode;
+    row.remove();
+}
+</script>
 
 </body>
 </html>
+
