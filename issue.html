@@ -1,9 +1,7 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Issue Book</title>
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -45,6 +43,7 @@
             margin: 8px 0 15px 0;
             border-radius: 5px;
             border: 1px solid #ccc;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
         }
 
         input:focus {
@@ -65,7 +64,7 @@
         }
 
         .btn:hover {
-            background:#3498db;
+            background:#2980b9;
         }
 
         /* Table */
@@ -81,8 +80,7 @@
         }
 
         th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
+            padding: 10px;            border: 1px solid #ddd;
             text-align: center;
         }
 
@@ -100,62 +98,44 @@
 <div class="container">
     <h2>Issue Book</h2>
 
-    <form onsubmit="issueBook(event)">
+    <!-- Form now points to your PHP file via POST method -->
+    <form action="backend/borrowbooks.php" method="POST">
         
-        <label>User ID</label>
-        <input type="text" id="userId" required>
+        <label>User ID (Roll No)</label>
+        <input type="text" id="userId" name="roll_no" required>
 
         <label>Book Name</label>
-        <input type="text" id="bookId" required>
+        <input type="text" id="bookId" name="book_name" required>
 
         <label>Issue Date</label>
-        <input type="date" id="issueDate" required>
+        <input type="date" id="issueDate" name="issue_date" required>
 
         <label>Return Date</label>
-        <input type="date" id="returnDate" required>
+        <input type="date" id="returnDate" name="return_date" required>
 
-        <button class="btn">Issue Book</button>
+        <!-- name="issue_book" is required for the PHP 'isset' check -->
+        <button type="submit" name="issue_book" class="btn">Issue Book</button>
     </form>
 </div>
 
-<!-- Table -->
+<!-- This table will now display data only if you fetch it from the database via PHP -->
 <div class="table-container">
     <h2 style="text-align:center;">Issued Books</h2>
     <table id="issueTable">
-        <tr>
-            <th>User ID</th>
-            <th>Book Name</th>
-            <th>Issue Date</th>
-            <th>Return Date</th>
-            <th>Status</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Book Name</th>
+                <th>Issue Date</th>
+                <th>Return Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data from the database should be populated here using a PHP loop -->
+        </tbody>
     </table>
 </div>
 
-<script>
-function issueBook(event) {
-    event.preventDefault();
-
-    let userId = document.getElementById("userId").value;
-    let bookId = document.getElementById("bookId").value;
-    let issueDate = document.getElementById("issueDate").value;
-    let returnDate = document.getElementById("returnDate").value;
-
-    let table = document.getElementById("issueTable");
-    let row = table.insertRow();
-
-    row.insertCell(0).innerHTML = userId;
-    row.insertCell(1).innerHTML = bookId;
-    row.insertCell(2).innerHTML = issueDate;
-    row.insertCell(3).innerHTML = returnDate;
-    row.insertCell(4).innerHTML = "Issued";
-
-    alert("Book Issued Successfully!");
-
-    document.querySelector("form").reset();
-}
-</script>
-
 </body>
 </html>
-

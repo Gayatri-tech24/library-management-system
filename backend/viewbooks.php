@@ -49,12 +49,16 @@ $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) > 0) {
                 while($row = mysqli_fetch_assoc($result)) {
                     $statusClass = (strtolower($row['status']) == 'available') ? 'status-available' : 'status-borrowed';
-                    echo "<tr>
-                            <td>{$row['id']}</td>
-                            <td>{$row['book_name']}</td>
-                            <td>{$row['author']}</td>
-                            <td class='$statusClass'>{$row['status']}</td>
-                          </tr>";
+                    // In the while loop of viewbooks.php
+echo "<tr>
+        <td>" . $row['book_name'] . "</td>
+        <td>" . $row['author'] . "</td>";
+        
+        // Add a color for 'Not Available' to make it stand out
+        $status_color = ($row['status'] == 'Available') ? 'green' : 'red';
+        
+        echo "<td style='color: $status_color; font-weight: bold;'>" . $row['status'] . "</td>
+      </tr>";
                 }
             } else {
                 echo "<tr><td colspan='4' style='text-align:center;'>No books found in the database.</td></tr>";

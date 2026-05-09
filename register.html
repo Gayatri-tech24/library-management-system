@@ -111,35 +111,29 @@
         <h2>Student Registration</h2>
 
         <form action="backend/auth/register.php" method="post">
+    <label>Full Name</label>
+    <input type="text" name="student_name" placeholder="Enter full name" required>
 
-            <label>Full Name</label>
-            <input type="text" placeholder="Enter full name" required>
+    <label>USN</label>
+    <input type="text" name="roll_no" placeholder="Enter USN" required>
 
-            <label>USN</label>
-            <input type="text" placeholder="Enter USN" required>
+    <label>Phone Number</label>
+    <input type="tel" name="phone" placeholder="Enter phone number" required>
 
-            <label>Phone Number</label>
-            <input type="tel" placeholder="Enter phone number" required>
+    <label>Year</label>
+    <select name="year" required>
+        <option value="">Select Year</option>
+        <option value="1st Year">1st Year</option>
+        <option value="2st Year">2st Year</option>
+        <option value="3st Year">3st Year</option>
+        <option value="4st Year">4st Year</option>
+        </select>
 
-            <label>Course</label>
-            <input type="text" placeholder="Enter course">
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Create password" required>
 
-            <label>Year</label>
-            <select required>
-                <option value="">Select Year</option>
-                <option>1st Year</option>
-                <option>2nd Year</option>
-                <option>3rd Year</option>
-                <option>4th Year</option>
-            </select>
-
-            <label>Password</label>
-            <input type="password" placeholder="Create password" required>
-
-            <button type="submit">Register</button>
-
-        </form>
-       
+    <button type="submit" name="register">Register</button>
+</form>
 
     </div>
 </div>

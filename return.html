@@ -104,19 +104,21 @@
 
 <div class="container">
     <h2>Return Book</h2>
-
-    <form onsubmit="returnBook(event)">
+    <!-- Points to returnbook.php using POST -->
+    <form action="backend/returnbook.php" method="POST">
         
-        <label>Issue ID</label>
-        <input type="text" id="issueId" required>
+        <label>Student Roll No</label>
+        <input type="text" name="roll_no" required>
+
+        <label>Book Name</label>
+        <input type="text" name="book_name" required>
 
         <label>Return Date</label>
-        <input type="date" id="returnDate" required>
+        <input type="date" name="return_date" required>
 
-        <button class="btn">Return Book</button>
+        <button type="submit" name="return_book" class="btn">Confirm Return</button>
     </form>
 </div>
-
 <!-- Table -->
 <div class="table-container">
     <h2 style="text-align:center;">Issued Records</h2>
