@@ -1,29 +1,56 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Database Connection
+// Connect via Port 3307
 $conn = mysqli_connect("127.0.0.1", "root", "", "library_db", 3307);
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $book_id = mysqli_real_escape_string($conn, $_POST['book_id']);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
-    // 1. Delete the record from the borrow table
-    $delete_sql = "DELETE FROM borrow WHERE book_id = '$book_id'";
-    
-    if (mysqli_query($conn, $delete_sql)) {
-        
-        // 2. Update the books table to make it 'Available' again
-        $update_sql = "UPDATE books SET status='Available' WHERE id='$book_id'";
-        mysqli_query($conn, $update_sql);
+$message = "";
 
-        echo "<script>
-                alert('✅ Book Returned Successfully!');
-                window.location.href='../return.html';
-              </script>";
+if (isset($_POST['return_book'])) {
+    $b_name = mysqli_real_escape_string($conn, $_POST['book_name']);
+    $r_no = mysqli_real_escape_string($conn, $_POST['roll_no']);
+
+    // Checking if student exists using 'roll_no'
+    $student_check = mysqli_query($conn, "SELECT * FROM student WHERE roll_no = '$r_no'");
+
+    if (mysqli_num_rows($student_check) > 0) {
+        // Corrected columns: book_name, author, status
+        $sql = "INSERT INTO books (book_name, author, status) VALUES ('$b_name', 'Returned', 'Available')";
+
+        if (mysqli_query($conn, $sql)) {
+            $message = "<p style='color:green; font-weight:bold;'>Success: '$b_name' is back in inventory!</p>";
+        } else {
+            $message = "<p style='color:red;'>SQL Error: " . mysqli_error($conn) . "</p>";
+        }
     } else {
-        echo "<h3>❌ Error:</h3> " . mysqli_error($conn);
+        $message = "<p style='color:red;'>Error: Roll No '$r_no' not found.</p>";
     }
 }
-mysqli_close($conn);
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Return Book</title>
+    <style>
+        body { font-family: Arial; text-align: center; background: #f4f4f4; padding-top: 50px; }
+        .box { background: white; padding: 30px; display: inline-block; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        input { display: block; width: 280px; padding: 10px; margin: 15px auto; border: 1px solid #ccc; border-radius: 5px; }
+        button { width: 100%; padding: 10px; background: #2e7d32; color: white; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Return Book</h2>
+        <form method="POST">
+            <input type="text" name="roll_no" placeholder="Student Roll No" required>
+            <input type="text" name="book_name" placeholder="Book Name" required>
+            <button type="submit" name="return_book">Confirm Return</button>
+        </form>
+        <?php echo $message; ?>
+        <br><a href="../index.html" style="text-decoration:none; color:#666;">← Dashboard</a>
+    </div>
+</body>
+</html>

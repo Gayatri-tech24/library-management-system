@@ -2,24 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User Management</title>
+    <title>Add Student - Library System</title>
     <style>
-        body { font-family: Arial; background: #eef5ff; padding: 50px; text-align: center; }
-        .card { background: white; padding: 30px; border-radius: 12px; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 350px; border-top: 5px solid #6a1b9a; }
-        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #6a1b9a; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        a { display: block; margin-top: 15px; color: #6a1b9a; text-decoration: none; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); width: 400px; border-top: 8px solid #6a1b9a; }
+        h2 { color: #4a148c; text-align: center; margin-bottom: 25px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        button { width: 100%; padding: 14px; background: #6a1b9a; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
+        button:hover { background: #4a148c; }
+        .links { display: flex; justify-content: space-between; margin-top: 20px; }
+        .links a { text-decoration: none; color: #6a1b9a; font-size: 14px; font-weight: bold; }
     </style>
 </head>
 <body>
+
     <div class="card">
-        <h2>👤 Student Registration</h2>
-        <form action="backend//auth/register.php" method="POST">
-            <input type="text" name="student_name" placeholder="Full Name" required>
-            <input type="text" name="roll_no" placeholder="Roll Number (e.g. 1AJ24CS...)" required>
-            <button type="submit">Register Student</button>
+        <h2>👤 View students</h2>
+        <form action="backend/auth/register.php" method="POST">
+            <label>Full Name</label>
+            <input type="text" name="student_name" placeholder="e.g. Aarnav Singh" required>
+
+            <label>Roll Number</label>
+            <input type="text" name="roll_no" placeholder="e.g. 1AJ24CS001" required>
+
+            <button type="submit">Add Student</button>
         </form>
-        <a href="index.html">← Back to Dashboard</a>
+        <div class="links">
+            <a href="index.html">← Dashboard</a>
+            <a href="manage_users.php">View Student List →</a>
+        </div>
     </div>
+
 </body>
 </html>
