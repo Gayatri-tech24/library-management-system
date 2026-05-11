@@ -15,6 +15,7 @@ $result = mysqli_query($conn, $sql);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Inventory</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
@@ -24,8 +25,12 @@ $result = mysqli_query($conn, $sql);
         th { background-color: #2e7d32; color: white; padding: 12px; text-align: left; }
         td { padding: 12px; border-bottom: 1px solid #ddd; }
         tr:hover { background-color: #f1f1f1; }
+        
+        /* Status Styles */
         .status-available { color: green; font-weight: bold; }
         .status-borrowed { color: red; font-weight: bold; }
+        
+        .back-link { text-decoration: none; color: #0055ff; font-weight: bold; display: inline-block; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -48,17 +53,16 @@ $result = mysqli_query($conn, $sql);
             <?php
             if (mysqli_num_rows($result) > 0) {
                 while($row = mysqli_fetch_assoc($result)) {
+                    // Determine which CSS class to use based on status
+                    // We use strtolower to make the check case-insensitive
                     $statusClass = (strtolower($row['status']) == 'available') ? 'status-available' : 'status-borrowed';
-                    // In the while loop of viewbooks.php
-echo "<tr>
-        <td>" . $row['book_name'] . "</td>
-        <td>" . $row['author'] . "</td>";
-        
-        // Add a color for 'Not Available' to make it stand out
-        $status_color = ($row['status'] == 'Available') ? 'green' : 'red';
-        
-        echo "<td style='color: $status_color; font-weight: bold;'>" . $row['status'] . "</td>
-      </tr>";
+                    
+                    echo "<tr>";
+                    echo "<td>" . $row['id'] . "</td>";         // Column 1: ID
+                    echo "<td>" . $row['book_name'] . "</td>";  // Column 2: Title
+                    echo "<td>" . $row['author'] . "</td>";     // Column 3: Author
+                    echo "<td class='$statusClass'>" . $row['status'] . "</td>"; // Column 4: Status
+                    echo "</tr>";
                 }
             } else {
                 echo "<tr><td colspan='4' style='text-align:center;'>No books found in the database.</td></tr>";
@@ -66,8 +70,8 @@ echo "<tr>
             ?>
         </tbody>
     </table>
-    <br>
-    <a href="index.html" style="text-decoration:none; color:#0055ff; font-weight:bold;">← Back to Dashboard</a>
+    
+    <a href="index.html" class="back-link">← Back to Dashboard</a>
 </div>
 
 </body>
